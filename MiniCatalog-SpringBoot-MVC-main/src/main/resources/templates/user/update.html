@@ -1,0 +1,56 @@
+<html lang="en" th:replace="~{shared/layout::layoutFragment('Modifiko perdoruesin', ~{::main}, null, null)}">
+
+<main class="container">
+    <div class="card">
+        <div class="card-header">
+            <h5>Modifiko perdoruesin</h5>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/admin/users/update/{id}(id=${userId})}" th:object="${user}" method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Emri i perdoruesit</label>
+                    <input type="text" class="form-control" id="username" th:field="*{username}">
+                    <div th:if="${#fields.hasErrors('username')}"
+                         th:errors="*{username}"
+                         class="text-danger">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Fjalekalimi (le bosh per te mbajtur te njejtin)</label>
+                    <input type="password" class="form-control" id="password" th:field="*{password}">
+                    <div th:if="${#fields.hasErrors('password')}"
+                         th:errors="*{password}"
+                         class="text-danger">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="role" class="form-label">Roli</label>
+                    <select id="role" class="form-select" th:field="*{role}">
+                        <option value="">Zgjedh rolin</option>
+                        <option th:each="r : ${roles}"
+                                th:value="${r}"
+                                th:text="${r}"
+                                th:selected="${r == user.role}">
+                        </option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('role')}"
+                         th:errors="*{role}"
+                         class="text-danger">
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Ruaj</button>
+                    <a th:href="@{/admin/users}" class="btn btn-outline-secondary ms-2">Anulo</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+</html>
+

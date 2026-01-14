@@ -1,0 +1,36 @@
+<html lang="en" th:replace="~{shared/layout::layoutFragment('Perdoruesit', ~{::main}, null, null)}">
+
+<main class="container">
+    <h1>Perdoruesit</h1>
+
+    <div class="my-4">
+        <a th:href="@{/admin/users/add}" class="btn btn-primary">Shto Perdorues</a>
+    </div>
+
+    <ul class="list-group" th:if="${users != null and !users.isEmpty()}">
+        <li class="list-group-item d-flex justify-content-between align-items-center"
+            th:each="user : ${users}">
+            <div class="ms-2 me-auto">
+                <div class="fw-bold" th:text="${user.username}"></div>
+                <span class="badge bg-primary" th:text="${user.role}"></span>
+            </div>
+
+            <div>
+                <a th:href="@{/admin/users/update/{id}(id=${user.id})}"
+                   class="btn btn-outline-secondary">
+                    Modifiko
+                </a>
+                <a th:href="@{/admin/users/delete/{id}(id=${user.id})}"
+                   class="btn btn-outline-danger">
+                    Fshij
+                </a>
+            </div>
+        </li>
+    </ul>
+    <div class="text-center" th:if="${users == null or users.isEmpty()}">
+        <h4>Perdoruesit nuk u gjeten 😒</h4>
+    </div>
+</main>
+
+</html>
+

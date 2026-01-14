@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{shared/layout::layoutFragment('Login', ~{::main}, null, null)}">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Login</title>
+</head>
+<body>
+
+<main class="container">
+    <div class="card">
+        <div class="card-header">
+            <h5>Login</h5>
+        </div>
+        <div class="card-body">
+            <div th:if="${param.error}" class="alert alert-danger">
+                Invalid username or password
+            </div>
+
+            <div th:if="${param.logout}" class="alert alert-success">
+                You have been logged out
+            </div>
+
+            <form th:action="@{/login}" method="post">
+                <div class="form-floating mb-3">
+                    <input type="text"
+                           class="form-control"
+                           id="floatingInput"
+                           placeholder="Username"
+                           name="username"
+                    >
+                    <label for="floatingInput">Username</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="password"
+                           class="form-control"
+                           id="floatingPassword"
+                           placeholder="Password"
+                           name="password"
+                    >
+                    <label for="floatingPassword">Password</label>
+                </div>
+
+                <button class="btn btn-primary w-100 py-2" type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

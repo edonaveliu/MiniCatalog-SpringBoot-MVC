@@ -1,0 +1,25 @@
+<html lang="en" th:replace="~{shared/layout::layoutFragment('Fshij perdoruesin', ~{::main}, null, null)}">
+
+<main class="container">
+    <div class="card text-center">
+        <div class="card-header">
+            <h5>Fshij Perdoruesin</h5>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">A jeni i/e sigurte qe deshironi ta fshini kete perdorues?</h5>
+            <p class="card-text">
+                Emri: <span th:text="${userToDelete.id} + ' - ' + ${userToDelete.username}"></span>
+                <br>
+                Roli: <span class="badge bg-primary" th:text="${userToDelete.role}"></span>
+            </p>
+            <hr>
+            <form th:action="@{/admin/users/delete/{id}(id=${userToDelete.id})}" method="post">
+                <button type="submit" class="btn btn-danger">Po</button>
+                <a th:href="@{/admin/users}" class="btn btn-outline-secondary">Jo</a>
+            </form>
+        </div>
+    </div>
+</main>
+
+</html>
+
