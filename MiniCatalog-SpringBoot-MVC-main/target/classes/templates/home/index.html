@@ -1,0 +1,70 @@
+<html lang="en" th:replace="~{shared/layout::layoutFragment('Ballina', ~{::main}, null, ~{::pageScripts})}">
+
+<main class="container">
+    <h1>Ballina</h1>
+    <p class="lead">Shfleto produktet tona</p>
+
+    <div class="my-4">
+        <form th:action="@{/}" method="get">
+            <div class="input-group mb-3">
+                <input type="text"
+                       class="form-control"
+                       placeholder="Kerko produkt..."
+                       name="searchText"
+                       th:value="${searchText}">
+                <input type="hidden" name="categoryId" th:value="${selectedCategoryId}" th:if="${selectedCategoryId != null}">
+                <button class="btn btn-outline-primary" type="submit">Kerko</button>
+                <a th:href="@{/}" class="btn btn-outline-secondary">Pastro</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="mb-4" th:if="${categories != null and !categories.isEmpty()}">
+        <h5>Kategorite:</h5>
+        <div class="d-flex flex-wrap gap-2">
+            <a th:href="@{/(searchText=${searchText})}"
+               class="btn btn-sm"
+               th:classappend="${selectedCategoryId == null} ? 'btn-primary' : 'btn-outline-primary'">
+                Te gjitha
+            </a>
+            <a th:each="cat : ${categories}"
+               th:href="@{/(categoryId=${cat.id}, searchText=${searchText})}"
+               class="btn btn-sm"
+               th:classappend="${selectedCategoryId == cat.id} ? 'btn-primary' : 'btn-outline-primary'"
+               th:text="${cat.name}">
+            </a>
+        </div>
+    </div>
+
+    <div class="row" th:if="${products != null and !products.isEmpty()}">
+        <div class="col-md-3 mb-4" th:each="product : ${products}">
+            <div class="card h-100">
+                <img th:src="${product.image != null ? product.image : 'https://placehold.co/600x400.png'}"
+                     class="card-img-top"
+                     alt="Foto e produktit"
+                     style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${product.name}"></h5>
+                    <p class="card-text" th:text="${product.description}"></p>
+                    <p class="fw-bold text-primary" th:text="${product.price + '€'}"></p>
+                    <p class="text-muted small">Stoku i fundit: <span class="stock-value" th:text="${product.stock}"></span></p>
+                    <a th:href="@{/(categoryId=${product.categoryId})}"
+                       class="badge bg-secondary text-decoration-none"
+                       th:text="${product.categoryName != null ? product.categoryName : 'Pa kategori'}">
+                    </a>
+                    <hr class="my-2">
+                    <button class="btn btn-info btn-sm btn-check-stock" th:data-product-id="${product.getId()}">Kontrollo Stokun</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center" th:if="${products == null or products.isEmpty()}">
+        <h5>Nuk ka produkte 😒</h5>
+    </div>
+</main>
+
+<th:block th:fragment="pageScripts">
+    <script th:src="@{/js/checkStock.js}"></script>
+</th:block>
+
+</html>

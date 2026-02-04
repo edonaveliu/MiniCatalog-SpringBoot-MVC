@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{shared/layout::layoutFragment('Access denied', ~{::main}, null, null)}">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Access denied</title>
+</head>
+
+<body>
+<main class="container">
+    <div class="card">
+        <div class="card-header">
+            <h5>Access denied</h5>
+        </div>
+        <div class="card-body">
+            <p class="mb-2">Nuk keni autorizim për të hapur këtë faqe.</p>
+            <p class="text-muted mb-3">Status: <strong>403</strong></p>
+
+            <div class="d-flex gap-2 flex-wrap">
+                <a class="btn btn-primary" th:href="@{/}">Kthehu te App</a>
+                <a class="btn btn-outline-secondary" th:href="@{/login}">Login</a>
+                <a class="btn btn-outline-secondary" href="javascript:history.back()">Kthehu prapa</a>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
